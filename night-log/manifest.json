@@ -1,0 +1,8 @@
+{
+    "name": "Night Log",
+    "short_name": "Night Log",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#1a1210",
+    "theme_color": "#1a1210"
+}
