@@ -1,42 +1,42 @@
-———<!DOCTYPE html>
-  <html lang="en">
-  <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Night Log">
-  <link rel="manifest" href="manifest.json">
-  <title>Night Log</title>
-  <style>
-    :root{
-      --bg:#1a1210;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Night Log">
+<link rel="manifest" href="manifest.json">
+<title>Night Log</title>
+<style>
+  :root{
+    --bg:#1a1210;
     --card:#241a16;
     --border:#3a2a22;
     --text:#e8d5c4;
-          --text-dim:#a88a75;
-          --accent:#c2601f;
-          --accent-bg:#3a2412;
-}
+    --text-dim:#a88a75;
+    --accent:#c2601f;
+    --accent-bg:#3a2412;
+  }
   *{box-sizing:border-box;}
   body{
-        margin:0;
+    margin:0;
     background:var(--bg);
     color:var(--text);
     font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     padding:1.5rem 1rem 3rem;
     min-height:100vh;
-}
+  }
   h1{font-size:18px;font-weight:600;margin:0 0 4px;}
   .sub{font-size:13px;color:var(--text-dim);margin:0 0 1.5rem;}
   .card{
-        background:var(--card);
+    background:var(--card);
     border:1px solid var(--border);
     border-radius:14px;
     padding:1.1rem;
     margin-bottom:1rem;
   }
-  .label{font-size:14px;margin:0 0 8px;color:var(--text);}
+  .label{font-size:22px;margin:0 0 10px;}
   .row{display:flex;gap:8px;}
   button.opt{
     flex:1;
@@ -52,7 +52,7 @@
     background:var(--accent-bg);
     border-color:var(--accent);
     color:#f0b072;
-    }
+  }
   input[type="time"]{
     width:100%;
     padding:10px;
@@ -62,7 +62,7 @@
     color:var(--text);
     font-size:15px;
     font-family:inherit;
-}
+  }
   input[type="range"]{width:100%;margin-top:4px;}
   .activation-val{text-align:center;font-size:22px;font-weight:600;margin:6px 0 0;color:var(--accent);}
   #saveBtn{
@@ -75,137 +75,137 @@
     font-size:16px;
     font-weight:600;
     font-family:inherit;
-}
+  }
   #saveBtn:active{opacity:0.8;}
   .status{text-align:center;font-size:13px;color:var(--text-dim);margin-top:10px;min-height:16px;}
   .history{font-size:13px;color:var(--text-dim);}
   .history-item{
-        display:flex;
+    display:flex;
     justify-content:space-between;
     padding:8px 0;
     border-bottom:1px solid var(--border);
-}
+  }
   .history-item:last-child{border-bottom:none;}
 </style>
-    </head>
-    <body>
+</head>
+<body>
 
-    <h1>Night log</h1>
-    <p class="sub">Quick bedtime check-in</p>
+<h1>Night log</h1>
+<p class="sub">Quick bedtime check-in</p>
 
-    <div class="card">
-      <p class="label">Drinks tonight</p>
-      <div class="row" id="alcRow"></div>
-    </div>
+<div class="card">
+  <p class="label">&#129380;</p>
+  <div class="row" id="rowA"></div>
+</div>
 
-    <div class="card">
-      <p class="label">Cannabis</p>
-      <div class="row" id="cannRow"></div>
-      <div id="cannTimeWrap" style="margin-top:10px;display:none;">
-        <input type="time" id="cannTime">
-      </div>
-    </div>
+<div class="card">
+  <p class="label">&#129382;</p>
+  <div class="row" id="rowB"></div>
+  <div id="timeBWrap" style="margin-top:10px;display:none;">
+    <input type="time" id="timeB">
+  </div>
+</div>
 
-    <div class="card">
-      <p class="label">Last workout</p>
-      <input type="time" id="workoutTime">
-    </div>
+<div class="card">
+  <p class="label">&#127939;</p>
+  <input type="time" id="timeC">
+</div>
 
-    <div class="card">
-      <p class="label">Last meal</p>
-      <input type="time" id="mealTime">
-    </div>
+<div class="card">
+  <p class="label">&#127869;&#65039;</p>
+  <input type="time" id="timeD">
+</div>
 
-    <div class="card">
-      <p class="label">Feeling wired tonight (1 calm — 5 wired)</p>
-      <input type="range" min="1" max="5" step="1" id="activation" value="3">
-      <p class="activation-val" id="activationVal">3</p>
-    </div>
+<div class="card">
+  <p class="label">&#9889;</p>
+  <input type="range" min="1" max="5" step="1" id="level" value="3">
+  <p class="activation-val" id="levelVal">3</p>
+</div>
 
-    <button id="saveBtn">Save log</button>
-    <p class="status" id="status"></p>
+<button id="saveBtn">Save log</button>
+<p class="status" id="status"></p>
 
-    <div class="card" style="margin-top:1.5rem;">
-      <p class="label">Recent nights</p>
-      <div class="history" id="history"></div>
-    </div>
+<div class="card" style="margin-top:1.5rem;">
+  <p class="label" style="font-size:14px;">Recent nights</p>
+  <div class="history" id="history"></div>
+</div>
 
-    <script>
-    const STORAGE_KEY = 'nightlog_entries';
+<script>
+const STORAGE_KEY = 'log_entries';
 
 function loadAll(){
-    try{ return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
-        catch(e){ return {}; }
+  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+  catch(e){ return {}; }
 }
 function saveAll(data){
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 function todayKey(){
-    return new Date().toISOString().slice(0,10);
+  return new Date().toISOString().slice(0,10);
 }
 
-let state = { alcoholCount: null, cannabis: null, cannabisTime: '', workoutTime: '', mealTime: '', activation: 3 };
+let state = { a: null, b: null, timeB: '', timeC: '', timeD: '', level: 3 };
 
-  const all = loadAll();
+const all = loadAll();
 if(all[todayKey()]) state = {...state, ...all[todayKey()]};
 
-function renderAlc(){
-    const row = document.getElementById('alcRow');
+function renderA(){
+  const row = document.getElementById('rowA');
   row.innerHTML = '';
-      [0,1,2,3,4].forEach(n=>{
-            const b = document.createElement('button');
-            b.className = 'opt' + (state.alcoholCount === n ? ' active' : '');
-                  b.textContent = n === 4 ? '4+' : n;
-    b.onclick = () => { state.alcoholCount = n; renderAlc(); };
+  [0,1,2,3,4].forEach(n=>{
+    const b = document.createElement('button');
+    b.className = 'opt' + (state.a === n ? ' active' : '');
+    b.textContent = n === 4 ? '4+' : n;
+    b.onclick = () => { state.a = n; renderA(); };
     row.appendChild(b);
-});
+  });
 }
 
-function renderCann(){
-    const row = document.getElementById('cannRow');
+function renderB(){
+  const row = document.getElementById('rowB');
   row.innerHTML = '';
-      ['yes','no'].forEach(v=>{
-            const b = document.createElement('button');
-            b.className = 'opt' + (state.cannabis === v ? ' active' : '');
-                  b.textContent = v === 'yes' ? 'Yes' : 'No';
+  ['yes','no'].forEach(v=>{
+    const b = document.createElement('button');
+    b.className = 'opt' + (state.b === v ? ' active' : '');
+    b.textContent = v === 'yes' ? 'Yes' : 'No';
     b.onclick = () => {
-            state.cannabis = v;
-      document.getElementById('cannTimeWrap').style.display = v === 'yes' ? 'block' : 'none';
-      renderCann();
-};
+      state.b = v;
+      document.getElementById('timeBWrap').style.display = v === 'yes' ? 'block' : 'none';
+      renderB();
+    };
     row.appendChild(b);
-});
-  document.getElementById('cannTimeWrap').style.display = state.cannabis === 'yes' ? 'block' : 'none';
+  });
+  document.getElementById('timeBWrap').style.display = state.b === 'yes' ? 'block' : 'none';
 }
 
 function renderHistory(){
-    const all = loadAll();
+  const all = loadAll();
   const keys = Object.keys(all).sort().reverse().slice(0,7);
   const el = document.getElementById('history');
   if(keys.length === 0){ el.innerHTML = '<p style="margin:0;">No entries yet.</p>'; return; }
   el.innerHTML = keys.map(k=>{
-        const e = all[k];
-        const d = new Date(k + 'T00:00:00');
+    const e = all[k];
+    const d = new Date(k + 'T00:00:00');
     const label = d.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric'});
-    const alc = e.alcoholCount === null ? '—' : (e.alcoholCount === 4 ? '4+' : e.alcoholCount);
-    const cann = e.cannabis === 'yes' ? 'Y' : (e.cannabis === 'no' ? 'N' : '—');
-    return `<div class="history-item"><span>${label}</span><span>drinks ${alc} · cann ${cann} · wired ${e.activation ?? '—'}</span></div>`;
-}).join('');
+    const a = e.a === null || e.a === undefined ? '\u2014' : (e.a === 4 ? '4+' : e.a);
+    const b = e.b === 'yes' ? 'Y' : (e.b === 'no' ? 'N' : '\u2014');
+    return `<div class="history-item"><span>${label}</span><span>&#129380; ${a} &#183; &#129382; ${b} &#183; &#9889; ${e.level ?? '\u2014'}</span></div>`;
+  }).join('');
 }
 
-document.getElementById('cannTime').oninput = e => state.cannabisTime = e.target.value;
-document.getElementById('workoutTime').oninput = e => state.workoutTime = e.target.value;
-document.getElementById('mealTime').oninput = e => state.mealTime = e.target.value;
-document.getElementById('activation').oninput = e => {
-  state.activation = +e.target.value;
-  document.getElementById('activationVal').textContent = state.activation;
+document.getElementById('timeB').oninput = e => state.timeB = e.target.value;
+document.getElementById('timeC').oninput = e => state.timeC = e.target.value;
+document.getElementById('timeD').oninput = e => state.timeD = e.target.value;
+document.getElementById('level').oninput = e => {
+  state.level = +e.target.value;
+  document.getElementById('levelVal').textContent = state.level;
 };
 
-document.getElementById('workoutTime').value = state.workoutTime || '';
-document.getElementById('mealTime').value = state.mealTime || '';
-document.getElementById('cannTime').value = state.cannabisTime || '';
-document.getElementById('activation').value = state.activation;
-document.getElementById('activationVal').textContent = state.activation;
+document.getElementById('timeC').value = state.timeC || '';
+document.getElementById('timeD').value = state.timeD || '';
+document.getElementById('timeB').value = state.timeB || '';
+document.getElementById('level').value = state.level;
+document.getElementById('levelVal').textContent = state.level;
 
 document.getElementById('saveBtn').onclick = () => {
   const all = loadAll();
@@ -215,8 +215,8 @@ document.getElementById('saveBtn').onclick = () => {
   renderHistory();
 };
 
-renderAlc();
-renderCann();
+renderA();
+renderB();
 renderHistory();
 </script>
 
